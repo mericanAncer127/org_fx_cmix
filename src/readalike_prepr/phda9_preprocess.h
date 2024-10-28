@@ -13,11 +13,11 @@
 
 #define P3_INPUT_SIZE 999988944
 #define P4_INPUT_SIZE 985154324 // out3 size
-#define TMP1A_SIZE 937788523
+#define TMP1A_SIZE 937788503
 #define TMP1B_SIZE 16193156
-#define TMP2A_SIZE 929737295
+#define TMP2A_SIZE 929737275
 #define TMP2B_SIZE 24244366
-#define OUT5_SIZE  980080701
+#define OUT5_SIZE  980080691
 #define R3_INPUT_SIZE 984215015 // size of out4 = out5d 
 #define R3_OUTPUT_ARR_SIZE 1100000000 // set to maximum possible
 #define R4_INPUT_SIZE      999049635 // size of out3d 
@@ -144,10 +144,10 @@ int prepr2(char const *argv[]) {
           f = 0;
           goto normal;
         }
-//        printf("Bad string, type 1: %s\n", s);
+      //  printf("Bad string, type 1: %s\n", s);
       }
       if (curID <= lastID) {
-//        printf("Bad string, type 2: %s\n", s);
+      //  printf("Bad string, type 2: %s\n", s);
       }
       fprintf(t2, ">%d%c", curID - lastID, 10);
 //      printf("Assign f = 2 -> 1, lastID = %d, curID = %d, %s\n", lastID, curID, s);
@@ -178,7 +178,7 @@ normal:
         }
       }
       if (s[0] != ' ' || s[1] != ' ' || s[2] != ' ' || s[3] != ' ') {
-//        printf("Bad string, type 3: %s\n", s);
+       printf("Bad string, type 3: %s\n", s);
       }
       if (f == 3) { // expect contributor
         if (*(int *)&s[6] == 'oc/<') {
@@ -422,8 +422,8 @@ bool replace(std::string& str, const std::string& from, const std::string& to) {
 }
 
 bool sed(std::string old_pattern, std::string new_pattern, char const * filename_from, char const * filename_to) {
-  std::ifstream ifile(filename_from, std::ifstream::in); 
-  std::ofstream ofile(filename_to); 
+  std::ifstream ifile(filename_from, std::ios::binary); 
+  std::ofstream ofile(filename_to, std::ios::binary); 
 
   std::string s;
   while (std::getline(ifile, s)) {
@@ -435,9 +435,9 @@ bool sed(std::string old_pattern, std::string new_pattern, char const * filename
 }
 
 bool cat(char const * filename_from1, char const * filename_from2, char const * filename_to) {
-  std::ifstream ifile1(filename_from1); 
-  std::ifstream ifile2(filename_from2); 
-  std::ofstream ofile(filename_to); 
+  std::ifstream ifile1(filename_from1, std::ios::binary); 
+  std::ifstream ifile2(filename_from2, std::ios::binary); 
+  std::ofstream ofile(filename_to, std::ios::binary); 
 
   char ch;
   while (ifile1 >> std::noskipws >> ch) {
@@ -819,7 +819,7 @@ int resto5(char const* argv[])
 
 int phda9_resto() {
   {
-    char const* argv[] = {".main_decomp", "out6d"};
+    char const* argv[] = {".main_phda9prepr_detransformed", "out6d"};
     prepr6(argv);
   }
   {
